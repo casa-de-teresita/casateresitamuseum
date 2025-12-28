@@ -1,8 +1,30 @@
-// netlify/functions/fetchContentPerformance.js
+// netlify/functions/fetchContentPerformance.js - AVEC DÉCODAGE BASE64
 const { BetaAnalyticsDataClient } = require('@google-analytics/data');
 
 const PROPERTY_ID = process.env.GA4_PROPERTY_ID;
 const SERVICE_ACCOUNT_KEY = process.env.GA4_SERVICE_ACCOUNT_KEY;
+
+// ==============================================
+// 🔧 HELPER: DECODE BASE64 SERVICE ACCOUNT KEY
+// ==============================================
+
+function decodeServiceAccountKey(base64Key) {
+  try {
+    console.log('🔄 Decoding base64 service account key...');
+    const decodedString = Buffer.from(base64Key, 'base64').toString('utf-8');
+    const credentials = JSON.parse(decodedString);
+    
+    if (!credentials.client_email || !credentials.private_key) {
+      throw new Error('Missing required fields in service account key');
+    }
+    
+    console.log('✅ Service account parsed:', credentials.client_email);
+    return credentials;
+  } catch (error) {
+    console.error('❌ Error decoding service account key:', error.message);
+    throw new Error('Invalid service account key format: ' + error.message);
+  }
+}
 
 // ==============================================
 // 🎯 CACHE CONFIGURATION
@@ -23,7 +45,6 @@ function isCacheValid() {
 async function fetchBlogAnalytics(client, startDateStr, endDateStr) {
   console.log('📝 Fetching blog analytics...');
   
-  // Blog posts performance
   const [blogPostsResponse] = await client.runReport({
     property: `properties/${PROPERTY_ID}`,
     dateRanges: [{ startDate: startDateStr, endDate: endDateStr }],
@@ -51,7 +72,6 @@ async function fetchBlogAnalytics(client, startDateStr, endDateStr) {
     limit: 20
   });
 
-  // Blog categories performance
   const [blogCategoriesResponse] = await client.runReport({
     property: `properties/${PROPERTY_ID}`,
     dateRanges: [{ startDate: startDateStr, endDate: endDateStr }],
@@ -72,11 +92,9 @@ async function fetchBlogAnalytics(client, startDateStr, endDateStr) {
     }
   });
 
-  // Extract categories from paths
   const categoryStats = {};
   (blogCategoriesResponse.rows || []).forEach(row => {
     const path = row.dimensionValues[0].value;
-    // Extraire la catégorie du path si possible (format: /en/blog/category-slug)
     const parts = path.split('/');
     const slug = parts[parts.length - 1] || 'uncategorized';
     
@@ -95,7 +113,6 @@ async function fetchBlogAnalytics(client, startDateStr, endDateStr) {
     categoryStats[slug].count += 1;
   });
 
-  // Calculate average engagement per category
   const categories = Object.entries(categoryStats).map(([slug, stats]) => ({
     slug,
     views: stats.views,
@@ -124,7 +141,6 @@ async function fetchBlogAnalytics(client, startDateStr, endDateStr) {
     };
   });
 
-  // Calculate blog overview metrics
   const totalBlogViews = posts.reduce((sum, post) => sum + post.views, 0);
   const totalBlogReaders = posts.reduce((sum, post) => sum + post.uniqueReaders, 0);
   const avgEngagement = posts.length > 0 
@@ -155,7 +171,6 @@ async function fetchBlogAnalytics(client, startDateStr, endDateStr) {
 async function fetchMuseumAnalytics(client, startDateStr, endDateStr) {
   console.log('🏛️ Fetching museum analytics...');
   
-  // Museum artworks performance
   const [artworksResponse] = await client.runReport({
     property: `properties/${PROPERTY_ID}`,
     dateRanges: [{ startDate: startDateStr, endDate: endDateStr }],
@@ -182,7 +197,6 @@ async function fetchMuseumAnalytics(client, startDateStr, endDateStr) {
     limit: 20
   });
 
-  // Media interactions (YouTube, Spotify)
   const [mediaResponse] = await client.runReport({
     property: `properties/${PROPERTY_ID}`,
     dateRanges: [{ startDate: startDateStr, endDate: endDateStr }],
@@ -201,7 +215,6 @@ async function fetchMuseumAnalytics(client, startDateStr, endDateStr) {
     }
   });
 
-  // Categories analysis
   const [categoriesResponse] = await client.runReport({
     property: `properties/${PROPERTY_ID}`,
     dateRanges: [{ startDate: startDateStr, endDate: endDateStr }],
@@ -239,7 +252,6 @@ async function fetchMuseumAnalytics(client, startDateStr, endDateStr) {
     };
   });
 
-  // Calculate media interactions
   let totalMediaInteractions = 0;
   let uniqueMediaUsers = 0;
   (mediaResponse.rows || []).forEach(row => {
@@ -247,11 +259,9 @@ async function fetchMuseumAnalytics(client, startDateStr, endDateStr) {
     uniqueMediaUsers += parseInt(row.metricValues[1].value || 0);
   });
 
-  // Analyze categories from paths
   const categoryMap = {};
   (categoriesResponse.rows || []).forEach(row => {
     const path = row.dimensionValues[0].value;
-    // Simuler l'extraction de catégories (ajuster selon votre structure)
     const slug = path.split('/').pop() || 'unknown';
     
     if (!categoryMap[slug]) {
@@ -274,7 +284,6 @@ async function fetchMuseumAnalytics(client, startDateStr, endDateStr) {
     .sort((a, b) => b.views - a.views)
     .slice(0, 8);
 
-  // Calculate overview
   const totalMuseumViews = artworks.reduce((sum, art) => sum + art.views, 0);
   const totalVisitors = artworks.reduce((sum, art) => sum + art.uniqueVisitors, 0);
   const avgEngagement = artworks.length > 0
@@ -308,7 +317,6 @@ async function fetchMuseumAnalytics(client, startDateStr, endDateStr) {
 async function fetchContentCorrelation(client, startDateStr, endDateStr) {
   console.log('🔗 Fetching content correlation...');
   
-  // User journey: Blog → Booking
   const [blogToBookingResponse] = await client.runReport({
     property: `properties/${PROPERTY_ID}`,
     dateRanges: [{ startDate: startDateStr, endDate: endDateStr }],
@@ -342,7 +350,6 @@ async function fetchContentCorrelation(client, startDateStr, endDateStr) {
     }
   });
 
-  // Museum → Room views
   const [museumToRoomResponse] = await client.runReport({
     property: `properties/${PROPERTY_ID}`,
     dateRanges: [{ startDate: startDateStr, endDate: endDateStr }],
@@ -389,11 +396,11 @@ async function fetchContentCorrelation(client, startDateStr, endDateStr) {
   return {
     blogToBooking: {
       conversions: blogConversions,
-      conversionRate: 0 // À calculer avec plus de contexte
+      conversionRate: 0
     },
     museumToRooms: {
       roomViews: museumToRoomViews,
-      clickThroughRate: 0 // À calculer avec plus de contexte
+      clickThroughRate: 0
     }
   };
 }
@@ -430,7 +437,6 @@ exports.handler = async (event) => {
     const dateRangeType = body.dateRange || 'last30Days';
     const useCache = body.useCache !== false;
 
-    // Check cache
     if (useCache && isCacheValid()) {
       console.log('✅ Returning cached data');
       return {
@@ -442,10 +448,10 @@ exports.handler = async (event) => {
 
     console.log('🔄 Fetching fresh content performance data...');
     
-    const credentials = JSON.parse(SERVICE_ACCOUNT_KEY);
+    // ✅ DÉCODER LA CLÉ BASE64
+    const credentials = decodeServiceAccountKey(SERVICE_ACCOUNT_KEY);
     const analyticsDataClient = new BetaAnalyticsDataClient({ credentials });
 
-    // Calculate dates
     const today = new Date();
     const startDate = new Date();
     
@@ -468,7 +474,6 @@ exports.handler = async (event) => {
 
     console.log(`📅 Analyzing content from ${startDateStr} to ${endDateStr}`);
 
-    // Fetch all data in parallel
     const [blog, museum, correlation] = await Promise.all([
       fetchBlogAnalytics(analyticsDataClient, startDateStr, endDateStr),
       fetchMuseumAnalytics(analyticsDataClient, startDateStr, endDateStr),
@@ -487,7 +492,6 @@ exports.handler = async (event) => {
       }
     };
 
-    // Update cache
     cache = contentPerformance;
     cacheTimestamp = Date.now();
 
