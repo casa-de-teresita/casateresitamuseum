@@ -1,0 +1,339 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Configuration de la publication - PUBLICATION DIRECTE
+# publish_mode: editorial_workflow  # Désactivé pour publication directe
+
+# Dossier racine par défaut
+media_folder: "public/images"
+public_folder: "/images"
+
+# Support i18n
+i18n:
+  structure: multiple_folders
+  locales: [en, es]
+  default_locale: en
+
+collections:
+  # ==========================================
+  # 📝 BLOG COLLECTION
+  # ==========================================
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "public/content/blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    media_folder: "/public/images/blog"
+    public_folder: "/images/blog"
+    i18n: true
+    editor:
+      preview: true
+    fields:
+      - label: "Title"
+        name: "title"
+        widget: "string"
+        i18n: duplicate
+        required: true
+        hint: "The main title of your blog post (used as link between EN/ES versions - must be identical)"
+        pattern: ['^.{3,200}$', "Title must be between 3 and 200 characters"]
+      
+      - label: "Publish Date"
+        name: "date"
+        widget: "datetime"
+        i18n: duplicate
+        required: true
+      
+      - label: "Featured Image"
+        name: "featuredImage"
+        widget: "object"
+        required: true
+        hint: "Main image shown in blog listing (1200x630px recommended)"
+        fields:
+          - label: "Image"
+            name: "src"
+            widget: "image"
+            i18n: duplicate
+            required: true
+            media_library:
+              config:
+                max_file_size: 5120000  # 5MB max
+          - label: "Alt Text"
+            name: "alt"
+            widget: "string"
+            i18n: true
+            required: true
+            hint: "Describe the image for accessibility and SEO (important!)"
+            pattern: ['^.{10,200}$', "Alt text must be between 10 and 200 characters"]
+      
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options: ["Travel", "History", "Culture", "Tips"]
+        i18n: duplicate
+        required: true
+        hint: "Select the blog post category"
+      
+      - label: "Excerpt"
+        name: "excerpt"
+        widget: "text"
+        i18n: true
+        required: true
+        hint: "Short summary (150-160 characters) shown in blog listing and search results"
+        pattern: ['^.{50,200}$', "Excerpt must be between 50 and 200 characters"]
+      
+      - label: "Body"
+        name: "body"
+        widget: "markdown"
+        i18n: true
+        required: true
+        hint: "Main content. Use ## for headings."
+        minimal: false
+        buttons: ["bold", "italic", "link", "heading-two", "heading-three", "quote", "bulleted-list", "numbered-list", "code"]
+      
+      - label: "Meta Description"
+        name: "metaDescription"
+        widget: "text"
+        i18n: true
+        required: false
+        hint: "SEO description (150-160 characters). If empty, excerpt will be used"
+        pattern: ['^.{0,160}$', "Meta description must be 160 characters or less"]
+      
+      - label: "Meta Keywords"
+        name: "keywords"
+        widget: "list"
+        i18n: true
+        required: false
+        hint: "SEO keywords (5-10 recommended). Press Enter after each keyword."
+        max: 15
+        min: 0
+      
+      - label: "External Links"
+        name: "externalLinks"
+        widget: "list"
+        i18n: true
+        required: false
+        hint: "Add important external links that will be displayed in a dedicated section"
+        fields:
+          - label: "Link Title"
+            name: "title"
+            widget: "string"
+            required: true
+          - label: "URL"
+            name: "url"
+            widget: "string"
+            required: true
+          - label: "Description"
+            name: "description"
+            widget: "string"
+            required: false
+      
+      - label: "Author"
+        name: "author"
+        widget: "string"
+        default: "La Casa de Teresita"
+        i18n: duplicate
+        required: false
+        hint: "Author name (defaults to La Casa de Teresita)"
+      
+      - label: "Published"
+        name: "published"
+        widget: "boolean"
+        default: true
+        required: true
+        i18n: duplicate
+        hint: "Uncheck to save as draft (won't be visible on the website)"
+      
+      - label: "Featured Post"
+        name: "featured"
+        widget: "boolean"
+        default: false
+        required: true
+        i18n: duplicate
+        hint: "Mark as featured to highlight on blog page"
+
+  # ==========================================
+  # 🏛️ MUSEUM COLLECTION
+  # ==========================================
+  - name: "museum"
+    label: "Museum Artworks"
+    folder: "public/content/museum"
+    create: true
+    slug: "{{slug}}"
+    media_folder: "/public/images/museum"
+    public_folder: "/images/museum"
+    editor:
+      preview: false
+    i18n: true
+    fields:
+      - label: "Artwork Title"
+        name: "title"
+        widget: "string"
+        i18n: duplicate
+        required: true
+        hint: "The main title of the artwork (used as link between EN/ES versions - must be identical)"
+        pattern: ['^.{3,200}$', "Title must be between 3 and 200 characters"]
+      
+      - label: "Artist"
+        name: "artist"
+        widget: "string"
+        i18n: duplicate
+        required: false
+        hint: "Name of the artist or creator"
+        default: "Casa de Teresita"
+      
+      - label: "Year"
+        name: "year"
+        widget: "string"
+        i18n: duplicate
+        required: false
+        hint: "Year or period of creation (e.g., '1920' or '19th Century')"
+        default: "20th Century"
+      
+      - label: "Featured Image"
+        name: "featuredImage"
+        widget: "object"
+        required: true
+        hint: "Main image for the artwork (REQUIRED)"
+        fields:
+          - label: "Image"
+            name: "src"
+            widget: "image"
+            i18n: duplicate
+            required: true
+            media_library:
+              config:
+                max_file_size: 5120000  # 5MB max
+          - label: "Alt Text"
+            name: "alt"
+            widget: "string"
+            i18n: true
+            required: true
+            hint: "Describe the artwork for accessibility and SEO (REQUIRED)"
+            pattern: ['^.{10,200}$', "Alt text must be between 10 and 200 characters"]
+      
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        required: true
+        i18n: duplicate
+        hint: "Select the artwork category (REQUIRED)"
+        options:
+          - { label: "Painting", value: "Painting" }
+          - { label: "Furniture", value: "Furniture" }
+          - { label: "Document", value: "Document" }
+          - { label: "Others", value: "Others" }
+        default: "Others"
+      
+      - label: "Excerpt"
+        name: "excerpt"
+        widget: "text"
+        i18n: true
+        required: true
+        hint: "Short summary (50-200 characters) shown in preview cards and search results (REQUIRED)"
+        pattern: ['^.{50,200}$', "Excerpt must be between 50 and 200 characters"]
+      
+      - label: "Description"
+        name: "body"
+        widget: "markdown"
+        i18n: true
+        required: true
+        hint: "Main content describing the artwork. Use ## for headings. (REQUIRED)"
+        minimal: false
+        buttons: ["bold", "italic", "link", "heading-two", "heading-three", "quote", "bulleted-list", "numbered-list"]
+      
+      - label: "Display Order"
+        name: "order"
+        widget: "select"
+        default: "auto"
+        required: true
+        i18n: duplicate
+        hint: "Choose display position: 'auto' places at end, or select specific number (0-100)"
+        options:
+          - { label: "Auto (end of list)", value: "auto" }
+          - { label: "1 - First position", value: 1 }
+          - { label: "2", value: 2 }
+          - { label: "3", value: 3 }
+          - { label: "4", value: 4 }
+          - { label: "5", value: 5 }
+          - { label: "10", value: 10 }
+          - { label: "15", value: 15 }
+          - { label: "20", value: 20 }
+          - { label: "25", value: 25 }
+          - { label: "30", value: 30 }
+          - { label: "50", value: 50 }
+          - { label: "100", value: 100 }
+      
+      - label: "Accessibility"
+        name: "accessibility"
+        widget: "select"
+        required: true
+        default: "public"
+        i18n: duplicate
+        hint: "Public: visible in museum listing | QR-only: accessible only via direct URL/QR code scan"
+        options:
+          - { label: "Public - Show in museum listing", value: "public" }
+          - { label: "QR Code Only - Hidden from listing (guests only)", value: "qr-only" }
+      
+      - label: "QR Code URL"
+        name: "qrCode"
+        widget: "string"
+        i18n: duplicate
+        required: false
+        hint: "Full URL for QR code generation (e.g., https://lacasadeteresita.netlify.app/museum/artwork-name)"
+        pattern: ['^(https?://)?.*$', "Must be a valid URL or leave empty"]
+      
+      - label: "YouTube Video"
+        name: "youtube"
+        widget: "string"
+        i18n: duplicate
+        required: false
+        hint: "YouTube video URL (e.g., https://youtu.be/xxxxx or https://youtube.com/watch?v=xxxxx)"
+        pattern: ['^(https?://)?(www\.)?(youtube\.com|youtu\.be)/.+$|^$', "Must be a valid YouTube URL or leave empty"]
+      
+      - label: "Meta Description"
+        name: "metaDescription"
+        widget: "text"
+        i18n: true
+        required: false
+        hint: "SEO description (150-160 characters). If empty, excerpt will be used."
+        pattern: ['^.{0,160}$', "Meta description must be 160 characters or less"]
+      
+      - label: "Meta Keywords"
+        name: "keywords"
+        widget: "list"
+        i18n: true
+        required: false
+        hint: "SEO keywords (5-10 recommended). Press Enter after each keyword."
+        max: 15
+        min: 0
+      
+      - label: "Published"
+        name: "published"
+        widget: "boolean"
+        default: true
+        required: true
+        i18n: duplicate
+        hint: "Uncheck to save as draft (won't be visible on the website)"
+      
+      - label: "Featured Artwork"
+        name: "featured"
+        widget: "boolean"
+        default: false
+        required: true
+        i18n: duplicate
+        hint: "Check to highlight this artwork in the featured slider on museum page"
+      
+      - label: "Date Published"
+        name: "datePublished"
+        widget: "datetime"
+        required: false
+        hint: "Auto-generated on first publish"
+        i18n: duplicate
+      
+      - label: "Date Modified"
+        name: "dateModified"
+        widget: "datetime"
+        required: false
+        hint: "Auto-updated on save"
+        i18n: duplicate

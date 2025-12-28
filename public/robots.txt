@@ -1,0 +1,23 @@
+# robots.txt for La Casa de Teresita
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /debug-blog
+
+# Sitemap
+Sitemap: https://lacasadeteresita.com/sitemap.xml
+
+# Crawl-delay (optional, helps with server load)
+Crawl-delay: 1
+
+# Specific rules for common bots
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
