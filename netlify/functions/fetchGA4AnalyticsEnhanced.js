@@ -1,8 +1,30 @@
-// netlify/functions/fetchGA4AnalyticsEnhanced.js - VERSION PROFESSIONNELLE
+// netlify/functions/fetchGA4AnalyticsEnhanced.js - AVEC DÉCODAGE BASE64
 const { BetaAnalyticsDataClient } = require('@google-analytics/data');
 
 const PROPERTY_ID = process.env.GA4_PROPERTY_ID;
 const SERVICE_ACCOUNT_KEY = process.env.GA4_SERVICE_ACCOUNT_KEY;
+
+// ==============================================
+// 🔧 HELPER: DECODE BASE64 SERVICE ACCOUNT KEY
+// ==============================================
+
+function decodeServiceAccountKey(base64Key) {
+  try {
+    console.log('🔄 Decoding base64 service account key...');
+    const decodedString = Buffer.from(base64Key, 'base64').toString('utf-8');
+    const credentials = JSON.parse(decodedString);
+    
+    if (!credentials.client_email || !credentials.private_key) {
+      throw new Error('Missing required fields in service account key');
+    }
+    
+    console.log('✅ Service account parsed:', credentials.client_email);
+    return credentials;
+  } catch (error) {
+    console.error('❌ Error decoding service account key:', error.message);
+    throw new Error('Invalid service account key format: ' + error.message);
+  }
+}
 
 // ==============================================
 // 🎯 CONFIGURATION & HELPERS
@@ -121,7 +143,6 @@ async function fetchOverviewMetrics(client, startDateStr, endDateStr, previousSt
     bounceRate: safeParseFloat(previous[3]?.value) * 100
   };
 
-  // Calculate trends
   const calculateTrend = (current, previous) => {
     if (previous === 0) return 0;
     return ((current - previous) / previous) * 100;
@@ -390,7 +411,7 @@ async function fetchRoomPerformance(client, startDateStr, endDateStr) {
   
   const [response] = await client.runReport({
     property: `properties/${PROPERTY_ID}`,
-    dateRanges: [{ startDate: startDateStr, endDate: endDateStr }],
+    dateRanges: [{ startDate: startDateStr, endDate: todayStr }],
     dimensions: [{ name: 'pagePath' }],
     metrics: [
       { name: 'screenPageViews' },
@@ -450,7 +471,6 @@ exports.handler = async (event) => {
     const dateRangeType = body.dateRange || 'last7Days';
     const useCache = body.useCache !== false;
 
-    // Check cache
     if (useCache && isoCacheValid()) {
       console.log('✅ Returning cached data');
       return {
@@ -462,14 +482,14 @@ exports.handler = async (event) => {
 
     console.log('🔄 Fetching fresh data from GA4...');
     
-    const credentials = JSON.parse(SERVICE_ACCOUNT_KEY);
+    // ✅ DÉCODER LA CLÉ BASE64
+    const credentials = decodeServiceAccountKey(SERVICE_ACCOUNT_KEY);
     const analyticsDataClient = new BetaAnalyticsDataClient({ credentials });
 
     const { startDate, endDate } = calculateDateRange(dateRangeType);
     const startDateStr = formatDate(startDate);
     const endDateStr = formatDate(endDate);
 
-    // Calculate previous period for comparison
     const daysDiff = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24));
     const previousEndDate = new Date(startDate);
     previousEndDate.setDate(previousEndDate.getDate() - 1);
@@ -482,7 +502,6 @@ exports.handler = async (event) => {
     console.log(`📅 Date range: ${startDateStr} to ${endDateStr}`);
     console.log(`📅 Previous period: ${previousStartStr} to ${previousEndStr}`);
 
-    // Fetch all data in parallel for better performance
     const [
       overview,
       timeline,
@@ -507,7 +526,6 @@ exports.handler = async (event) => {
       fetchRoomPerformance(analyticsDataClient, startDateStr, endDateStr)
     ]);
 
-    // Calculate conversion rate
     const conversionRate = overview.totalVisits > 0 
       ? ((conversions.whatsappClicks / overview.totalVisits) * 100).toFixed(2)
       : 0;
@@ -536,14 +554,10 @@ exports.handler = async (event) => {
       }
     };
 
-    // Update cache
     cache = analytics;
     cacheTimestamp = Date.now();
 
     console.log('✅ Analytics data fetched successfully');
-    console.log(`📊 Total visits: ${overview.totalVisits}`);
-    console.log(`👥 Unique visitors: ${overview.uniqueVisitors}`);
-    console.log(`💰 Conversion rate: ${conversionRate}%`);
 
     return {
       statusCode: 200,
