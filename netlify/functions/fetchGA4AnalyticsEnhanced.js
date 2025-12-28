@@ -1,4 +1,4 @@
-// netlify/functions/fetchGA4AnalyticsEnhanced.js - AVEC DÉCODAGE BASE64
+// netlify/functions/fetchGA4AnalyticsEnhanced.js - VERSION CORRIGÉE
 const { BetaAnalyticsDataClient } = require('@google-analytics/data');
 
 const PROPERTY_ID = process.env.GA4_PROPERTY_ID;
@@ -406,8 +406,12 @@ async function fetchMuseumPerformance(client, startDateStr, endDateStr) {
   }));
 }
 
+// 🔧 FIX: Ajouter la fonction fetchRoomPerformance avec todayStr défini
 async function fetchRoomPerformance(client, startDateStr, endDateStr) {
   console.log('🏨 Fetching room performance...');
+  
+  // 🔧 FIX: Définir todayStr ici
+  const todayStr = endDateStr; // Utiliser endDateStr comme todayStr
   
   const [response] = await client.runReport({
     property: `properties/${PROPERTY_ID}`,
