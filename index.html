@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PEPZTL0NRS"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      // ✅ Configuration pour SPA React
+      gtag('config', 'G-PEPZTL0NRS', {
+        // IMPORTANT: On laisse le tracking auto des pages pour la première visite
+        'send_page_view': true,
+        // Cookies
+        'cookie_flags': 'SameSite=None;Secure',
+        'anonymize_ip': true,
+        // Debug en développement
+        'debug_mode': window.location.hostname === 'localhost'
+      });
+
+    </script>
+
+    <!-- SEO Meta Tags -->
+    <title>La Casa de Teresita | Historic Boutique Hotel La Paz Bolivia</title>
+    <meta name="description" content="Stay in a historic 1916 mansion in La Paz. Boutique museum hotel with gardens, piano collections and authentic rooms. Rated 9.6/10. Direct booking." />
+    <meta name="keywords" content="La Paz hotel, boutique hotel La Paz, historic hotel La Paz, 1916 mansion, La Paz gardens, museum hotel La Paz, San Jorge hotel, accommodation La Paz Bolivia" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://lacasadeteresita.com/" />
+    <meta property="og:title" content="La Casa de Teresita | Historic Boutique Hotel La Paz" />
+    <meta property="og:description" content="Experience La Paz history in a 1916 mansion. Historic gardens, piano collections, authentic rooms. Rated 9.6/10." />
+    <meta property="og:image" content="https://lacasadeteresita.com/house1.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="La Casa de Teresita" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="es_BO" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://lacasadeteresita.com/" />
+    <meta name="twitter:title" content="La Casa de Teresita | Historic Boutique Hotel La Paz" />
+    <meta name="twitter:description" content="Stay in a historic 1916 mansion in La Paz. Gardens, century-old pianos, authentic rooms. Rated 9.6/10." />
+    <meta name="twitter:image" content="https://lacasadeteresita.com/house1.jpg" />
+
+    <!-- ✅ PRELOAD CRITIQUE: Image LCP -->
+    <link rel="preload" href="/house1.jpg" as="image" fetchpriority="high">
+    
+    <!-- ✅ PRECONNECT & DNS-PREFETCH OPTIMISÉ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- ✅ PRELOAD FONTS (élimine les 750ms de Google Fonts) -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/playfairdisplay/v36/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvUDQZNLo_U2r.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZJhiI2B.woff2" as="font" type="font/woff2" crossorigin>
+    
+    <!-- ✅ FONTS avec display=swap -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Additional SEO -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow" />
+    <link rel="canonical" href="https://lacasadeteresita.com/" />
+    
+    <!-- Geo Tags -->
+    <meta name="geo.region" content="BO-L" />
+    <meta name="geo.placename" content="La Paz" />
+    <meta name="geo.position" content="-16.5;-68.15" />
+    <meta name="ICBM" content="-16.5, -68.15" />
+
+    <!-- ✅ CRITICAL CSS INLINE (les 170ms de blocage du CSS) -->
+    <style>
+      /* Reset & Base */
+      *,::before,::after{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}
+      html{line-height:1.5;-webkit-text-size-adjust:100%;tab-size:4;font-family:Inter,sans-serif;font-feature-settings:normal;font-variation-settings:normal}
+      body{margin:0;line-height:inherit}
+      
+      /* Critical Layout */
+      #root{min-height:100vh}
+      
+      /* Hero Critical Styles (évite le CLS) */
+      .hero-section{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+      .hero-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+      .hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.5),rgba(0,0,0,0.4),rgba(0,0,0,0.6))}
+      .hero-content{position:relative;z-index:10;text-align:center;padding:1rem;max-width:80rem;margin:0 auto}
+      
+      /* Fonts Loading (évite le FOIT) */
+      .playfair{font-family:'Playfair Display',serif}
+      .inter{font-family:Inter,sans-serif}
+      
+      /* Loading State */
+      .loading-spinner{display:inline-block;width:3rem;height:3rem;border:0.25rem solid rgba(200,165,106,0.3);border-top-color:#C4A96A;border-radius:50%;animation:spin 1s linear infinite}
+      @keyframes spin{to{transform:rotate(360deg)}}
+    </style>
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Hotel",
+      "name": "La Casa de Teresita",
+      "description": "Historic boutique hotel in a 1916 mansion in the heart of La Paz. Three historic gardens, century-old piano collections, and authentic rooms offering a unique experience.",
+      "image": [
+        "https://lacasadeteresita.com/house1.jpg",
+        "https://lacasadeteresita.com/garden.webp",
+        "https://lacasadeteresita.com/piano.webp"
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Av. Arce 2995, San Jorge",
+        "addressLocality": "La Paz",
+        "addressRegion": "La Paz",
+        "postalCode": "",
+        "addressCountry": "BO"
+      },
+      "telephone": ["+591-2-2431018", "+591-2-2430260", "+591-706-75985"],
+      "email": "info@lacasadeteresita.com",
+      "url": "https://casadeteresitamuseo.netlify.app",
+      "priceRange": "$40-$90 USD",
+      "starRating": {
+        "@type": "Rating",
+        "ratingValue": "4.5",
+        "bestRating": "5"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "9.6",
+        "bestRating": "10",
+        "worstRating": "1",
+        "ratingCount": "247",
+        "reviewCount": "247"
+      },
+      "checkinTime": "14:00",
+      "checkoutTime": "12:00",
+      "numberOfRooms": "9",
+      "petsAllowed": "False",
+      "amenityFeature": [
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Free WiFi",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Breakfast Included",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Private Parking",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Garden",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Historic Building",
+          "value": true
+        }
+      ],
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "-16.5",
+        "longitude": "-68.15"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ],
+        "opens": "00:00",
+        "closes": "23:59"
+      },
+      "sameAs": [
+        "https://www.facebook.com/lacasadeteresita",
+        "https://www.instagram.com/lacasadeteresita"
+      ]
+    }
+    </script>
+
+    <!-- LocalBusiness Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "@id": "https://lacasadeteresita.com/#localbusiness",
+      "name": "La Casa de Teresita",
+      "alternateName": "Casa de Teresita La Paz",
+      "description": "Historic mansion transformed into a boutique museum hotel since 1916",
+      "foundingDate": "1916",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Av. Arce 2995, San Jorge",
+        "addressLocality": "La Paz",
+        "addressCountry": "BO"
+      },
+      "telephone": "+591-2-2431018",
+      "priceRange": "$$",
+      "image": "https://lacasadeteresita.com/house1.jpg",
+      "url": "https://casadeteresitamuseo.netlify.app"
+    }
+    </script>
+
+    <!-- Breadcrumb Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://lacasadeteresita.com/"
+        }
+      ]
+    }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- ✅ NETLIFY IDENTITY WIDGET (nécessaire pour le CMS) -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

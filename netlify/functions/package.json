@@ -1,0 +1,8 @@
+{
+  "name": "netlify-functions",
+  "version": "1.0.0",
+  "description": "Netlify Functions for La Casa de Teresita",
+  "dependencies": {
+    "@google-analytics/data": "^5.2.1"
+  }
+}
