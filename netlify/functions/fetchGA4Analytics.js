@@ -1,9 +1,44 @@
-// netlify/functions/fetchGA4Analytics.js - VERSION CORRIGÉE
+// netlify/functions/fetchGA4Analytics.js - VERSION AVEC DÉCODAGE BASE64
 const { BetaAnalyticsDataClient } = require('@google-analytics/data');
 
 // ✅ Variables d'environnement Netlify (sans VITE_)
 const PROPERTY_ID = process.env.GA4_PROPERTY_ID;
 const SERVICE_ACCOUNT_KEY = process.env.GA4_SERVICE_ACCOUNT_KEY;
+
+// ==========================================
+// 🔧 HELPER: DECODE BASE64 SERVICE ACCOUNT KEY
+// ==========================================
+
+function decodeServiceAccountKey(base64Key) {
+  try {
+    console.log('🔄 Decoding base64 service account key...');
+    
+    // Décoder la clé base64 en string
+    const decodedString = Buffer.from(base64Key, 'base64').toString('utf-8');
+    
+    console.log('✅ Base64 decoded successfully');
+    console.log('📝 Decoded key preview:', decodedString.substring(0, 100) + '...');
+    
+    // Parser le JSON
+    const credentials = JSON.parse(decodedString);
+    
+    // Vérifier que les champs obligatoires sont présents
+    if (!credentials.client_email || !credentials.private_key) {
+      throw new Error('Missing required fields in service account key');
+    }
+    
+    console.log('✅ Service account parsed:', credentials.client_email);
+    
+    return credentials;
+  } catch (error) {
+    console.error('❌ Error decoding service account key:', error.message);
+    throw new Error('Invalid service account key format: ' + error.message);
+  }
+}
+
+// ==========================================
+// 🚀 MAIN HANDLER
+// ==========================================
 
 exports.handler = async (event) => {
   const headers = {
@@ -40,8 +75,8 @@ exports.handler = async (event) => {
   }
 
   try {
-    console.log('🔄 Parsing service account credentials...');
-    const credentials = JSON.parse(SERVICE_ACCOUNT_KEY);
+    // ✅ DÉCODER LA CLÉ BASE64
+    const credentials = decodeServiceAccountKey(SERVICE_ACCOUNT_KEY);
 
     console.log('🔄 Initializing GA4 client...');
     const analyticsDataClient = new BetaAnalyticsDataClient({
