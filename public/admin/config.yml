@@ -79,7 +79,7 @@ collections:
         widget: "text"
         i18n: true
         required: true
-        hint: "Short summary (150-160 characters) shown in blog listing and search results"
+        hint: "Short summary (50-200 characters) shown in blog listing and search results"
         pattern: ['^.{50,200}$', "Excerpt must be between 50 and 200 characters"]
       
       - label: "Body"
@@ -97,7 +97,7 @@ collections:
         i18n: true
         required: false
         hint: "SEO description (150-160 characters). If empty, excerpt will be used"
-        pattern: ['^.{0,160}$', "Meta description must be 160 characters or less"]
+        pattern: ['^.{0,160}$', "Meta description cannot exceed 160 characters"]
       
       - label: "Meta Keywords"
         name: "keywords"
@@ -296,8 +296,8 @@ collections:
         widget: "text"
         i18n: true
         required: false
-        hint: "SEO description (150-160 characters). If empty, excerpt will be used."
-        pattern: ['^.{0,160}$', "Meta description must be 160 characters or less"]
+        hint: "SEO description (150-160 characters). If empty, excerpt will be used"
+        pattern: ['^.{0,160}$', "Meta description cannot exceed 160 characters"]
       
       - label: "Meta Keywords"
         name: "keywords"
