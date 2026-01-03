@@ -164,7 +164,8 @@ export const roomsDetailed = [
     rating: 9.4,
     reviewCount: 45,
     images: [
-      '/doubleFamilial.jpg'
+      '/doubleFamilial.jpg',
+      '/‎Familial-second-room.jpg'
     ],
     description: {
       en: 'A private bathroom and a kitchenette space.',
