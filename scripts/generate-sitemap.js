@@ -2,7 +2,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const BASE_URL = 'https://lacasadeteresita.netlify.app';
+const BASE_URL = 'https://lacasadeteresita.com';
 
 async function generateSitemap() {
   const urls = [
