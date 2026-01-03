@@ -7,7 +7,7 @@ featuredImage:
 category: Others
 excerpt: dfgjkdshfkjsdhjkdfskhsdkfhkjsdhkjfdhkjshkhfsdkhfdkhdfksjhskdfhkjfshsdfhjksdhfkjsdhfkjfdhskjfshdfhsjksfhdsdfhshdkjhhfdjksdhjfhfhkjsfhkhfskj
 order: auto
-accessibility: qr-only
+accessibility: public
 youtube: https://youtu.be/C_t9B8foti4?si=A_oHEde3YRkM4hNU
 published: true
 featured: false
