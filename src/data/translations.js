@@ -214,7 +214,7 @@ export const translations = {
     },
     museum: {
       title: "Our Museum Collection",
-      subtitle: "A curated collection of historic artifacts, pianos, and artworks preserving La Paz's cultural heritage since 1916.",
+      subtitle: "A collection of historical items, objects from different parts of the world, documents, books, and photographs, as well as curiosities that preserve the heritage and legacy of the family.",
       metaDescription: "Discover our historic collection of pianos, furniture, paintings, and artifacts from early 20th century La Paz.",
       intro1: "La Casa de Teresita houses a remarkable collection of historic artifacts that tell the story of early 20th century La Paz. Each piece has been carefully preserved by our family for over a century.",
       intro2: "From antique pianos to period furniture and documents, our museum offers a unique window into Bolivia's cultural heritage. Scan the QR codes to learn more about each piece.",
