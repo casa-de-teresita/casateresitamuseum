@@ -9,7 +9,7 @@ excerpt: La hermosa historia del nombre del Hotel Boutique Museo LA CASA DE
   TERESITA en La Paz, Bolivia
 order: 1
 accessibility: public
-qrCode: https://lacasadeteresita.com/admin/#/collections/museum/entries/the-story-behind-the-name-la-casa-de-teresita
+qrCode: https://lacasadeteresita.netlify.app/museum/the-story-behind-the-name-la-casa-de-teresita
 published: true
 featured: false
 datePublished: 2026-02-15T00:39:02.174Z

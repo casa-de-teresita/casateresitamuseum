@@ -11,7 +11,7 @@ excerpt: The beautiful story behind the name of the Boutique museum hotel LA
   CASA DE TERESITA in La Paz, Bolivia
 order: 1
 accessibility: public
-qrCode: https://lacasadeteresita.com/admin/#/collections/museum/entries/the-story-behind-the-name-la-casa-de-teresita
+qrCode: https://lacasadeteresita.netlify.app/museum/the-story-behind-the-name-la-casa-de-teresita
 published: true
 featured: false
 datePublished: 2026-02-15T00:39:02.174Z
