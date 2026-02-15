@@ -12,6 +12,7 @@ excerpt: An oil painting capturing the vibrant daily life and colors of Santa
   Cruz de la Sierra, Bolivia.
 order: 10
 accessibility: public
+qrCode: https://lacasadeteresita.netlify.app/museum/entries/pelando-naranjas
 youtube: https://youtu.be/PkOu3NJ4qMY?si=kJ6Ck2xDba-z51c8
 metaDescription: ""
 keywords: []
