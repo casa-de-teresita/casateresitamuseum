@@ -13,6 +13,13 @@ excerpt: Pérez Alcalá’s watercolor depicting the fervor of a Bolivian
   traditional tiled roofs of the Bolivian valley towns.
 order: auto
 accessibility: public
+keywords:
+  - Ricardo Perez Alcala
+  - Bolivian watercolor
+  - sacred art
+  - religious procession Bolivia
+  - Casa de Teresita museum
+  - cultural heritage
 published: true
 featured: false
 datePublished: 2026-03-23T01:43:25.913Z

@@ -10,6 +10,13 @@ excerpt: Acuarela de Pérez Alcalá que retrata el fervor de una procesión en u
   tradicionales techos de teja de los valles bolivianos.
 order: auto
 accessibility: public
+keywords:
+  - Ricardo Pérez Alcalá
+  - acuarela boliviana
+  - arte sacro
+  - procesión religiosa Bolivia
+  - Casa de Teresita
+  - patrimonio cultural
 published: true
 featured: false
 datePublished: 2026-03-23T01:43:25.913Z
