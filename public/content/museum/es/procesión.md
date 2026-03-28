@@ -1,5 +1,5 @@
 ---
-title: Procesión
+title: Procesion
 artist: Ricardo Perez Alcalá
 year: 20th Century
 featuredImage:
@@ -8,8 +8,9 @@ category: Painting
 excerpt: Acuarela de Pérez Alcalá que retrata el fervor de una procesión en un
   pueblo boliviano. Una obra maestra que une fe, arquitectura rústica y los
   tradicionales techos de teja de los valles bolivianos.
-order: auto
+order: 5
 accessibility: public
+qrCode: https://lacasadeteresita.netlify.app/museum/entries/procesion
 keywords:
   - Ricardo Pérez Alcalá
   - acuarela boliviana

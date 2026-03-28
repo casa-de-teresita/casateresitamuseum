@@ -1,5 +1,5 @@
 ---
-title: Procesión
+title: Procesion
 artist: Ricardo Perez Alcalá
 year: 20th Century
 featuredImage:
@@ -11,8 +11,9 @@ category: Painting
 excerpt: Pérez Alcalá’s watercolor depicting the fervor of a Bolivian
   procession. A masterpiece blending faith, rustic architecture, and the
   traditional tiled roofs of the Bolivian valley towns.
-order: auto
+order: 5
 accessibility: public
+qrCode: https://lacasadeteresita.netlify.app/museum/entries/procesion
 keywords:
   - Ricardo Perez Alcala
   - Bolivian watercolor
