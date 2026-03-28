@@ -8,8 +8,9 @@ category: Painting
 excerpt: "Pintura barroca mestiza de Leonardo Flores: Cristo en la cruz
   sostenido por un clérigo, con un ángel portando azucenas a la derecha. Óleo en
   marco dorado calado del siglo XVII."
-order: auto
+order: 10
 accessibility: public
+qrCode: https://lacasadeteresita.com/admin/#/collections/museum/entries/descenso-de-la-cruz
 keywords:
   - Leonardo Flores
   - Barroco Mestizo

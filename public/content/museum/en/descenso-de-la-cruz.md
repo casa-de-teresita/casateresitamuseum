@@ -11,8 +11,9 @@ category: Painting
 excerpt: "Mestizo Baroque painting by Leonardo Flores: Christ on the cross held
   by a cleric, with an angel holding lilies. 17th-century oil in a pierced gold
   frame."
-order: auto
+order: 10
 accessibility: public
+qrCode: https://lacasadeteresita.com/admin/#/collections/museum/entries/descenso-de-la-cruz
 keywords:
   - Leonardo Flores
   - Mestizo Baroque
